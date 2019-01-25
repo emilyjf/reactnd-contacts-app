@@ -1,7 +1,7 @@
 import React from 'react'
-//import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 //import { Link } from 'react-router-dom'
-function ListContacts () {
+function ListContacts (props) {
     return (
         <ol className='contact-list'>
             {props.contacts.map((contact) => (
@@ -27,5 +27,10 @@ function ListContacts () {
     )
 }
 
+ListContacts.propTypes = {
+    contacts: PropTypes.array.isRequired,
+    onDeleteContact: PropTypes.func.isRequired,
+}
 
 export default ListContacts
+            
