@@ -6,7 +6,8 @@ import { Route } from 'react-router-dom'
 
 class App extends Component {
   state = {
-    contacts: []
+    contacts: [],
+    screen: 'list'
   }
   componentDidMount() {
     ContactsAPI.getAll()
@@ -36,20 +37,20 @@ class App extends Component {
   render() {
     return (
       <div>
-        <Route exact path='/' render={() => (
+        {this.state.screen === 'list' && (
           <ListContacts
             contacts={this.state.contacts}
             onDeleteContact={this.removeContact}
-          />
-        )} />
-        <Route path='/create' render={({ history }) => (
-          <CreateContact
-            onCreateContact={(contact) => {
-              this.createContact(contact)
-              history.push('/')
+            onNavigate={() => {
+                this.setState(() => ({
+                    screen: 'create'
+                }))
             }}
           />
-        )} />
+        )}
+          {this.state.screen === 'create' && (
+          <CreateContact />
+        )}
       </div>
     )
   }
